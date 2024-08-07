@@ -7,6 +7,7 @@ import org.eternity.reservation.persistence.memory.*;
 import org.eternity.reservation.service.ReservationService;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static java.time.DayOfWeek.MONDAY;
 import static java.time.DayOfWeek.WEDNESDAY;
@@ -18,8 +19,8 @@ import static org.eternity.reservation.domain.DiscountPolicy.PolicyType.AMOUNT_P
 public class Main {
     private ScreeningDAO screeningDAO = new ScreeningMemoryDAO();
     private MovieDAO movieDAO = new MovieMemoryDAO();
-    private DiscountPolicyDAO discountPolicyDAO = new DiscountPolicyMemoryDAO();
     private DiscountConditionDAO discountConditionDAO = new DiscountConditionMemoryDAO();
+    private DiscountPolicyDAO discountPolicyDAO = new DiscountPolicyMemoryDAO(discountConditionDAO);
     private ReservationDAO reservationDAO = new ReservationMemoryDAO();
 
     ReservationService reservationService = new ReservationService(
@@ -34,7 +35,11 @@ public class Main {
         Movie movie = new Movie("한산", 150, Money.wons(10000));
         movieDAO.insert(movie);
 
-        DiscountPolicy discountPolicy = new DiscountPolicy(movie.getId(), AMOUNT_POLICY, Money.wons(1000), null);
+        DiscountPolicy discountPolicy = new DiscountPolicy(
+                movie.getId(),
+                AMOUNT_POLICY,
+                Money.wons(1000),
+                null);
         discountPolicyDAO.insert(discountPolicy);
 
         discountConditionDAO.insert(new DiscountCondition(discountPolicy.getId(), SEQUENCE_CONDITION, null, null, null, 1));
