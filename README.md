@@ -2,6 +2,14 @@
 ## 프로젝트 구조
 ### object-basic
   - Inflearn > 오브젝트 - 기초편
+    - org.eternity 패키지
+      - 예제 2.1
+      - 예제 2.4
+    - org.eternity_ex5 패키지
+      - 예제 5.1
+      - 예제 5.3
+    - https://github.com/eternity-oop/object-basic-05-04
+      - 예제 5.4  
 
 <hr>
 
